@@ -1,12 +1,12 @@
-// import '../styles/globals.css'
-import 'tailwindcss/tailwind.css';
+import '../styles/globals.css';
+import '../styles/tailwind.css';
 import type { AppProps } from 'next/app';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Component {...pageProps} />
-      <div className="w-screen">100</div>
+      <div className="text-red">100</div>
     </>
   );
 }
