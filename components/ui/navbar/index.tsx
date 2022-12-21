@@ -51,7 +51,7 @@ export default function Example() {
                       <ActiveLink
                         href={item.href}
                         key={item.name}
-                        activeClass="bg-gray-900 text-white"
+                        activeclass="bg-gray-900 text-white"
                       >
                         <div
                           className={classNames(

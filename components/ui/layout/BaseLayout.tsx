@@ -1,5 +1,5 @@
 import { FunctionComponent, ReactElement } from 'react';
-import Navbar from '../navbar';
+import { Navbar } from '@ui';
 
 // 为什么使用箭头函数而不是使用function?
 // 因为箭头函数可以标注类型

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 interface LinkProps {
   href: string;
   children: ReactElement;
-  activeClass: string;
+  activeclass: string;
 }
 
 const ActiveLink: FunctionComponent<LinkProps> = ({ children, ...props }) => {
@@ -15,7 +15,7 @@ const ActiveLink: FunctionComponent<LinkProps> = ({ children, ...props }) => {
 
   className =
     pathname === props.href
-      ? `${className} text-indigo-400 ${props.activeClass}`
+      ? `${className} text-indigo-400 ${props.activeclass}`
       : _defaultClass;
 
   return <Link {...props}>{React.cloneElement(children, { className })}</Link>;

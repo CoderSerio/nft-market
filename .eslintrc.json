@@ -1,22 +1,28 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "eslint:recommended"
-  ],
+  "extends": ["next/core-web-vitals", "eslint:recommended"],
   "env": {
     "browser": true,
     "es2021": true,
     "node": true
   },
   "parserOptions": {
-      "ecmaVersion": 13,
-      "sourceType": "module"
+    "ecmaVersion": 13,
+    "sourceType": "module"
   },
-  "plugins": [
-    "prettier"
-  ],
+  "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error",
     "semi": [0]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      // 解决tsconfig下的path别名导致eslint插件无法解决的bug
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
   }
 }
