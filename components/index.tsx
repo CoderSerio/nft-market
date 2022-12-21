@@ -2,3 +2,5 @@
 // 而且这个写法, 也非常逆天, 先导入再导出
 export { default as Navbar } from './navbar';
 export { default as BaseLayout } from './layout/BaseLayout';
+export { default as NftList } from './nft/list';
+export { default as NftItem } from './nft/item';
