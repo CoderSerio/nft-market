@@ -1,9 +1,11 @@
-import { FunctionComponent } from 'react';
-import FunctionComponentProps from '../type';
+import { FunctionComponent, ReactElement } from 'react';
 import Navbar from '../navbar';
 
 // 为什么使用箭头函数而不是使用function?
 // 因为箭头函数可以标注类型
+interface FunctionComponentProps {
+  children: string | ReactElement;
+}
 
 const BaseLayout: FunctionComponent<FunctionComponentProps> = ({
   children,
