@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { FunctionComponentProps } from '@_types/props';
 import { Web3State } from '@_types/web3';
-import { createDefaultState } from './utils';
+import { createDefaultState, loadContract } from './utils';
 import { ethers } from 'ethers';
 
 const Web3Context = createContext<Web3State>(createDefaultState());
@@ -18,13 +18,15 @@ const Web3Provider: FunctionComponent<FunctionComponentProps> = ({
 }) => {
   const [web3Api, setWeb3Api] = useState<Web3State>(createDefaultState());
   useEffect(() => {
-    function initWeb3() {
-      const ethereum = window.ethereum;
-      const provider = new ethers.providers.Web3Provider(ethereum);
+    async function initWeb3() {
+      const ethereum = window.ethereum; // MetaMask的数据
+      const provider = new ethers.providers.Web3Provider(ethereum); // 封装MetaMask的数据
+      const contract = await loadContract('NftMarket', provider); // 导入智能合约
+
       setWeb3Api({
         ethereum,
         provider,
-        contract: null,
+        contract,
         isLoading: false,
       });
     }
