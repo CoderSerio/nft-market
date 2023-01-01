@@ -1,4 +1,5 @@
-import { Web3State } from '@_types/web3';
+import { Web3Params, Web3State } from '@_types/web3';
+import { setupHooks } from 'components/hooks/web3/setupHooks';
 import { Contract, ethers, providers } from 'ethers';
 
 export const createDefaultState = () => {
@@ -7,6 +8,23 @@ export const createDefaultState = () => {
     provider: null,
     contract: null,
     isLoading: true,
+    hooks: setupHooks({} as any),
+  };
+  return res;
+};
+
+export const createWeb3State = ({
+  ethereum,
+  provider,
+  contract,
+  isLoading,
+}: Web3Params & { isLoading: boolean }) => {
+  const res: Web3State = {
+    ethereum,
+    provider,
+    contract,
+    isLoading,
+    hooks: setupHooks({ ethereum, provider, contract }),
   };
   return res;
 };

@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { ActiveLink } from '../index';
-import { useAccount } from 'components/hooks';
+import { useAccount } from 'components/hooks/web3';
 // import img from 'next/img';
 
 const navigation = [
@@ -16,8 +16,9 @@ function classNames(...classes: any[]) {
 }
 
 export default function Navbar() {
-  const { data } = useAccount('Some Random Params');
-  console.log('data', data);
+  const { account } = useAccount();
+  console.log('account', account.data);
+  // console.log('data', data);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (

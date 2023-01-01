@@ -10,8 +10,8 @@ const Home: NextPage = () => {
   const { provider, contract } = useWeb3();
 
   const getNftInfo = async () => {
-    console.log(await contract!.name());
-    console.log(await contract!.symbol());
+    // console.log(await contract!.name());
+    // console.log(await contract!.symbol());
   };
 
   if (contract) {
@@ -19,9 +19,10 @@ const Home: NextPage = () => {
   }
 
   const getAccounts = async () => {
-    const accounts = await provider!.listAccounts();
-    console.log('accounts', accounts);
+    // const accounts = await provider!.listAccounts();
+    // console.log('accounts', accounts);
   };
+
   if (provider) {
     getAccounts();
   }
