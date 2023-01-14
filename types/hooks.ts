@@ -10,11 +10,17 @@ export interface CryptoHookFactory<D = any, P = any> {
 
 export type CryptoHandlerHook<D = any, P = any> = (params?: P) => CryptoSWRResponse<D>;
 
-export type CryptoSWRResponse<D> = SWRResponse<D>;
+export type CryptoSWRResponse<D = any, R = any> = SWRResponse<D> & R;
 
-export type AccountHookFactory = CryptoHookFactory<string>;
+export type AccountHookFactory = CryptoHookFactory<string, UseAccountResponse>;
 
 export type UseAccountHook = ReturnType<AccountHookFactory>;
+
+export type UseAccountResponse = {
+  connect: () => void;
+  isLoading: boolean;
+  isInstalled: boolean;
+}
 
 export interface Web3Hooks {
   useAccount: UseAccountHook;

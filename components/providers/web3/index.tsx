@@ -20,19 +20,30 @@ const Web3Provider: FunctionComponent<FunctionComponentProps> = ({
 
   useEffect(() => {
     async function initWeb3() {
-      const ethereum = window.ethereum; // MetaMask的数据
-      const provider = new ethers.providers.Web3Provider(ethereum); // 封装MetaMask的数据，可以得到一些方便的API
-      const contract = await loadContract('NftMarket', provider); // 导入智能合约数据，得到一些方便的API
+      try {
+        const ethereum = window.ethereum; // MetaMask的数据
+        const provider = new ethers.providers.Web3Provider(ethereum); // 封装MetaMask的数据，可以得到一些方便的API
+        const contract = await loadContract('NftMarket', provider); // 导入智能合约数据，得到一些方便的API
 
-      setWeb3Api(
-        // web3State是把default的几项初始化为特定的值
-        createWeb3State({
-          ethereum,
-          provider,
-          contract,
-          isLoading: false,
-        })
-      );
+        setWeb3Api(
+          // web3State是把default的几项初始化为特定的值
+          createWeb3State({
+            ethereum,
+            provider,
+            contract,
+            isLoading: false,
+          })
+        );
+      } catch (e: any) {
+        // 主要是处理没有安装MetaMask的情况
+        console.log(e);
+        setWeb3Api((api) =>
+          createWeb3State({
+            ...(api as any),
+            isLoading: false,
+          })
+        );
+      }
     }
     initWeb3();
   }, []);

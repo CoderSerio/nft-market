@@ -4,9 +4,10 @@ import { Web3Hooks } from './hooks';
 import { Nullable } from './utils';
 
 export interface Web3Params {
-  ethereum?: MetaMaskInpageProvider | null;
-  provider?: providers.Web3Provider | null;
-  contract?: Contract | null;
+  provider: providers.Web3Provider;
+  contract: Contract;
+  ethereum: MetaMaskInpageProvider;
+  isLoading: boolean;
 }
 
 export type Web3State = {
