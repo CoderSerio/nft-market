@@ -78,8 +78,11 @@ const NftCreate: NextPage = () => {
                     <div className="mb-4 p-4">
                       <div className="font-bold">Your metadata: </div>
                       <div>
-                        <Link href={nftURI}>
-                          <a className="underline text-indigo-600">{nftURI}</a>
+                        <Link
+                          href={nftURI}
+                          className="underline text-indigo-600"
+                        >
+                          {nftURI}
                         </Link>
                       </div>
                     </div>

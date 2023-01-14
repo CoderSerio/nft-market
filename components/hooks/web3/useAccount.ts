@@ -54,6 +54,7 @@ export const hookFactory: AccountHookFactory =
     return {
       ...swr,
       data,
+      isValidating,
       isLoading: isLoading || isValidating,
       isInstalled: ethereum?.isMetaMask || false,
       mutate,

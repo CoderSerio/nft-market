@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { BaseLayout } from '@ui';
 import nfts from '../content/meta.json';
 import { NftMeta } from '@_types/nft';
+import Link from 'next/link';
 const tabs = [{ name: 'Your Collection', href: '#', current: true }];
 
 function classNames(...classes: string[]) {
@@ -31,7 +32,7 @@ const Profile: NextPage = () => {
                         aria-label="Tabs"
                       >
                         {tabs.map((tab) => (
-                          <a
+                          <Link
                             key={tab.name}
                             href={tab.href}
                             aria-current={tab.current ? 'page' : undefined}
@@ -43,7 +44,7 @@ const Profile: NextPage = () => {
                             )}
                           >
                             {tab.name}
-                          </a>
+                          </Link>
                         ))}
                       </nav>
                     </div>
