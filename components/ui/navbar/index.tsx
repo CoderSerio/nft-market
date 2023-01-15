@@ -1,7 +1,7 @@
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ActiveLink } from '../index';
-import { useAccount } from 'components/hooks/web3';
+import { useAccount, useNetwork } from 'components/hooks/web3';
 import Walletbar from './WalletBar';
 // import img from 'next/img';
 
@@ -16,6 +16,9 @@ function classNames(...classes: any[]) {
 
 export default function Navbar() {
   const { account } = useAccount();
+  const { network } = useNetwork();
+
+  console.log('network', network);
   console.log('account', account);
   // console.log('data', data);
   return (
@@ -71,13 +74,22 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                <div className="text-gray-300 self-center mr-2">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-purple-100 text-purple-800">
+                    <svg
+                      className="-ml-0.5 mr-1.5 h-2 w-2 text-indigo-400"
+                      fill="currentColor"
+                      viewBox="0 0 8 8"
+                    >
+                      <circle cx={4} cy={4} r={3} />
+                    </svg>
+                    {network.isLoading
+                      ? 'Loading...'
+                      : account.isInstalled
+                      ? network.data
+                      : 'Install Web3 Wallet'}
+                  </span>
+                </div>
                 <Walletbar
                   account={account.data ?? ''}
                   isInstalled={account.isInstalled}

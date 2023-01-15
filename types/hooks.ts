@@ -12,9 +12,17 @@ export type UseAccountResponse = {
   connect: () => void;
   isLoading: boolean;
   isInstalled: boolean;
+};
+
+export type UseNetworkResponse = {
+  isLoading: boolean;
 }
 
 export type AccountHookFactory = CryptoHookFactory<string, UseAccountResponse>;
+
+export type NetworkHookFactory = CryptoHandlerHook<string, UseNetworkResponse>;
+
+export type UseNetworkHook = ReturnType<NetworkHookFactory>
 
 export type CryptoHandlerHook<D = any, R = any, P = any> = (params?: P) => CryptoSWRResponse<D, R>;
 
@@ -25,11 +33,13 @@ export type UseAccountHook = ReturnType<AccountHookFactory>;
 
 export interface Web3Hooks {
   useAccount: UseAccountHook;
+  useNetwork: UseNetworkHook;
 }
 
 export interface SetupHooks {
   (data: Web3Params): Web3Hooks;
 }
+
 // export interface CryptoHookFactory<D = any, P = any> {
 //   (data: Partial<Web3Dependencies>): (params: P) => SWRResponse<D>;
 // }
