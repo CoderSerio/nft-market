@@ -9,6 +9,28 @@ import { FunctionComponentProps } from '@_types/props';
 import { Web3State } from '@_types/web3';
 import { createDefaultState, createWeb3State, loadContract } from './utils';
 import { ethers } from 'ethers';
+import { MetaMaskInpageProvider } from '@metamask/providers';
+
+const pageReload = () => {
+  window.location.reload();
+};
+
+const handleAccount = (ethereum: MetaMaskInpageProvider) => async () => {
+  const isLocked = !(await ethereum._metamask.isUnlocked());
+  if (isLocked) {
+    pageReload();
+  }
+};
+
+const setGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
+  ethereum.on('chainChanged', pageReload);
+  ethereum.on('accountsChanged', handleAccount(ethereum));
+};
+
+const removeGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
+  ethereum?.removeListener('chainChanged', pageReload);
+  ethereum?.removeListener('accountsChanged', handleAccount);
+};
 
 const Web3Context = createContext<Web3State>(createDefaultState());
 
@@ -25,6 +47,7 @@ const Web3Provider: FunctionComponent<FunctionComponentProps> = ({
         const provider = new ethers.providers.Web3Provider(ethereum); // 封装MetaMask的数据，可以得到一些方便的API
         const contract = await loadContract('NftMarket', provider); // 导入智能合约数据，得到一些方便的API
 
+        setTimeout(() => setGlobalListeners(ethereum), 500);
         setWeb3Api(
           // web3State是把default的几项初始化为特定的值
           createWeb3State({
@@ -46,6 +69,7 @@ const Web3Provider: FunctionComponent<FunctionComponentProps> = ({
       }
     }
     initWeb3();
+    return () => removeGlobalListeners(window.ethereum);
   }, []);
 
   // 之后要用数据的组件，都通过认Provider当父组件，所以就相当于可以通过父传子的形式传递数据

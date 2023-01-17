@@ -12,6 +12,9 @@ const NETWORK: Record<string, string> = {
   1337: 'Ganache',
 };
 
+const targetId = process.env.NEXT_PUBLIC_TARGET_CHAIN_ID;
+const targetNetwork = NETWORK[targetId];
+
 export const hookFactory: NetworkHookFactory =
   ({ provider, isLoading }) => () => {
     const { data, isValidating, ...swr } = useSWR(
@@ -25,6 +28,7 @@ export const hookFactory: NetworkHookFactory =
       },
       {
         revalidateOnFocus: false,
+        shouldRetryOnError: false,
       }
     );
 
@@ -32,6 +36,8 @@ export const hookFactory: NetworkHookFactory =
       ...swr,
       data,
       isValidating,
+      targetNetwork,
+      isSupported: data === targetNetwork,
       isLoading: isLoading as boolean,
     };
   };
